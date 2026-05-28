@@ -382,9 +382,9 @@
         /* --- GAME GRIDS --- */
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr); /* 4 Spalten wie im Bild */
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            max-height: 320px; /* Scrollbar aktivieren */
+            max-height: 320px;
             overflow-y: auto;
             padding-right: 5px;
             padding-bottom: 10px;
@@ -407,9 +407,9 @@
 
         .game-cover-box {
             width: 100%;
-            aspect-ratio: 3 / 4; /* Typisches Cover-Format */
+            aspect-ratio: 3 / 4;
             border: 1px solid rgba(78, 75, 66, 0.3);
-            border-radius: 4px; /* Leicht abgerundet wie im Screenshot */
+            border-radius: 4px;
             background: rgba(78, 75, 66, 0.05);
             transition: all 0.2s;
             overflow: hidden;
@@ -428,7 +428,6 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-            /* Leichte Anpassung für Nier-Theme, wird beim hover farbig */
             filter: brightness(0.9) contrast(1.05);
             transition: filter 0.3s;
         }
@@ -756,6 +755,7 @@
             text-decoration: none;
             color: #4e4b42;
             transition: all 0.2s;
+            cursor: pointer;
         }
 
         .contact-item:hover {
@@ -793,6 +793,88 @@
             padding: 6px 10px;
             border: 1px solid rgba(205, 202, 168, 0.2);
             backdrop-filter: blur(2px);
+        }
+
+        /* --- NSFW MODAL STYLES --- */
+        #nsfw-modal-overlay {
+            position: fixed;
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            background: rgba(26, 25, 22, 0.85);
+            z-index: 20000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 1;
+            transition: opacity 0.3s ease;
+        }
+
+        #nsfw-modal-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .nsfw-modal-box {
+            background: #cdcaa8;
+            border: 2px solid #4e4b42;
+            width: 90%;
+            max-width: 420px;
+            padding: 25px;
+            text-align: center;
+            box-shadow: 6px 6px 0px rgba(78, 75, 66, 0.4);
+            transform: translateY(0);
+            transition: transform 0.3s ease;
+        }
+
+        #nsfw-modal-overlay.hidden .nsfw-modal-box {
+            transform: translateY(20px);
+        }
+
+        .nsfw-modal-header {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #8b0000;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #4e4b42;
+            padding-bottom: 10px;
+        }
+
+        .nsfw-modal-header i { margin-right: 8px; }
+
+        .nsfw-modal-text {
+            font-size: 0.9rem;
+            color: #4e4b42;
+            line-height: 1.6;
+            margin-bottom: 25px;
+            font-weight: bold;
+        }
+
+        .nsfw-modal-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .nsfw-btn {
+            padding: 10px 30px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            cursor: pointer;
+            border: 2px solid #4e4b42;
+            background: transparent;
+            color: #4e4b42;
+            transition: all 0.2s;
+        }
+
+        .nsfw-btn:hover {
+            background: #4e4b42;
+            color: #cdcaa8;
         }
 
     </style>
@@ -859,7 +941,6 @@
                     <div class="section-title">In Rotation / Active Units</div>
                     
                     <div class="games-grid">
-                        
                         <a href="https://deadbydaylight.com/" target="_blank" class="game-grid-link">
                             <div class="game-cover-box"><img src="assets/Game Tab/dbd.jpg" alt="Game 1"></div>
                         </a>
@@ -1093,10 +1174,10 @@
                     <div>
                         <div class="activity-type" style="text-align: left; margin-bottom: 6px;">Websites I builded/helped at building:</div>
                         <div style="display: flex; flex-direction: column; gap: 6px;">
-                            <a href="https://urdream69.github.io/" target="_blank" class="contact-item" style="padding: 10px; margin-bottom: 0;">
+                            <div onclick="openNsfwModal('https://urdream69.github.io/')" class="contact-item" style="padding: 10px; margin-bottom: 0;">
                                 <div class="contact-label"><i class="fa-solid fa-globe"></i>ur.dream :P</div>
                                 <div class="contact-value">[ visit network ]</div>
-                            </a>
+                            </div>
                         </div>
                     </div>
 
@@ -1148,6 +1229,21 @@
         </div>
     </div>
 
+    <div id="nsfw-modal-overlay" class="hidden">
+        <div class="nsfw-modal-box">
+            <div class="nsfw-modal-header">
+                <i class="fa-solid fa-triangle-exclamation"></i> Warning
+            </div>
+            <div class="nsfw-modal-text">
+                The Website you are trying to visit may Contain +18 (NSFW) Content.<br><br>
+                Are you sure you want to get redirected to the Website?
+            </div>
+            <div class="nsfw-modal-buttons">
+                <button class="nsfw-btn btn-no" onclick="closeNsfwModal()">NO</button>
+                <button class="nsfw-btn btn-yes" onclick="proceedToNsfwSite()">YES</button>
+            </div>
+        </div>
+    </div>
   
 <div class="copyright-disclaimer">
     © 2026 ASUKAA // YoRHa PERSONAL NETWORK — ALL RIGHTS RESERVED
@@ -1223,6 +1319,28 @@
             
             if (element) {
                 element.classList.add('active');
+            }
+        }
+
+        /* --- NSFW MODAL LOGIC --- */
+        let nsfwTargetUrl = "";
+
+        function openNsfwModal(url) {
+            nsfwTargetUrl = url;
+            const modal = document.getElementById('nsfw-modal-overlay');
+            modal.classList.remove('hidden');
+        }
+
+        function closeNsfwModal() {
+            nsfwTargetUrl = "";
+            const modal = document.getElementById('nsfw-modal-overlay');
+            modal.classList.add('hidden');
+        }
+
+        function proceedToNsfwSite() {
+            if (nsfwTargetUrl !== "") {
+                window.open(nsfwTargetUrl, '_blank');
+                closeNsfwModal();
             }
         }
 
