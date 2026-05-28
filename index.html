@@ -818,10 +818,12 @@
             
             <div class="nier-tabs">
                 <button class="tab-btn active" onclick="switchTab('profile', this)">Profile</button>
-                <button class="tab-btn" onclick="switchTab('games', this)">Data Archive (Games)</button>
+                <button class="tab-btn" onclick="switchTab('games', this)">Games</button>
                 <button class="tab-btn" onclick="switchTab('socials', this)">Game Socials</button>
                 <button class="tab-btn" onclick="switchTab('waifu', this)">Waifu Corner</button>
                 <button class="tab-btn" onclick="switchTab('activity', this)">Discord Activity</button>
+                <button class="tab-btn" onclick="switchTab('specs', this)">PC Specs</button>
+                <button class="tab-btn" onclick="switchTab('developer', this)">Developer Corner</button>
                 <button class="tab-btn" onclick="switchTab('contact', this)">Contact</button>
             </div>
 
@@ -1041,6 +1043,76 @@
                 </div>
             </div>
 
+            <div id="specs-tab" class="tab-content">
+                <h2 class="socials-headline">Core Hardware System</h2>
+                <div class="socials-list">
+                    <div class="socials-item">
+                        <span class="socials-platform"><i class="fa-solid fa-border-all"></i> Mainboard</span>
+                        <span class="socials-uid">ASUS ROG Crosshair IV HERO [Wi-Fi AC]</span>
+                    </div>
+                    <div class="socials-item">
+                        <span class="socials-platform"><i class="fa-solid fa-microchip"></i> Processor</span>
+                        <span class="socials-uid">AMD Ryzen 7 2700X</span>
+                    </div>
+                    <div class="socials-item">
+                        <span class="socials-platform"><i class="fa-solid fa-memory"></i> RAM</span>
+                        <span class="socials-uid">16GB 2x DDR4 G.Skill Trident Z Royal 8GB (3200 MHz)</span>
+                    </div>
+                    <div class="socials-item">
+                        <span class="socials-platform"><i class="fa-solid fa-gamepad"></i> Graphics Card</span>
+                        <span class="socials-uid">AMD Radeon RX 6600 XT (Gigabyte OC Edition)</span>
+                    </div>
+                    <div class="socials-item">
+                        <span class="socials-platform"><i class="fa-solid fa-droplet"></i> AIO</span>
+                        <span class="socials-uid">Cooler Master MasterLiquid ML240L RGB</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="developer-tab" class="tab-content">
+                <h2 class="socials-headline">Developer Corner</h2>
+                <div class="socials-list" style="max-height: 320px; overflow-y: auto; gap: 12px;">
+                    
+                    <div class="bio-text" style="border-top: none; padding-top: 0; margin-bottom: 0;">
+                        Disclaimer: Im not a Professional, I do it as a Hobby
+                    </div>
+
+                    <div style="border-bottom: 1px dashed rgba(78, 75, 66, 0.4); margin: 2px 0;"></div>
+
+                    <div>
+                        <div class="activity-type" style="text-align: left; margin-bottom: 6px;">Programming Languages iam used to:</div>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <div class="socials-item" style="padding: 10px;"><span class="socials-platform"><i class="fa-brands fa-html5"></i> HTML</span></div>
+                            <div class="socials-item" style="padding: 10px;"><span class="socials-platform"><i class="fa-brands fa-css3-alt"></i> CSS</span></div>
+                            <div class="socials-item" style="padding: 10px;"><span class="socials-platform"><i class="fa-brands fa-python"></i> Python</span></div>
+                        </div>
+                    </div>
+
+                    <div style="border-bottom: 1px dashed rgba(78, 75, 66, 0.4); margin: 2px 0;"></div>
+
+                    <div>
+                        <div class="activity-type" style="text-align: left; margin-bottom: 6px;">Websites I builded/helped at building:</div>
+                        <div style="display: flex; flex-direction: column; gap: 6px;">
+                            <a href="https://urdream69.github.io/" target="_blank" class="contact-item" style="padding: 10px; margin-bottom: 0;">
+                                <div class="contact-label"><i class="fa-solid fa-globe"></i>ur.dream :P</div>
+                                <div class="contact-value">[ visit network ]</div>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div style="border-bottom: 1px dashed rgba(78, 75, 66, 0.4); margin: 2px 0;"></div>
+
+                    <div>
+                        <div class="activity-type" style="text-align: left; margin-bottom: 6px;">Other Projects I did:</div>
+                        <div class="socials-item" style="padding: 10px;">
+                            <span class="socials-platform"><i class="fa-solid fa-terminal"></i>Several Discord Bots and some Scripts for Games</span>
+                            <span class="socials-uid">Active</span>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
             <div id="contact-tab" class="tab-content">
                 <h2 class="contact-headline">Direct Communication</h2>
                 <div class="contact-list">
@@ -1077,13 +1149,10 @@
     </div>
 
   
-    <div class="copyright-disclaimer">
-        © 2026 ASUKAA // YoRHa PERSONAL NETWORK — ALL RIGHTS RESERVED
-        <br>
-        <span style="display:inline-block; margin-top: 5px;">
-            VISITORS: <script type="text/javascript" src="https://counter.websiteout.com/js/16/0/0/0"></script>
-        </span>
-    </div>
+<div class="copyright-disclaimer">
+    © 2026 ASUKAA // YoRHa PERSONAL NETWORK — ALL RIGHTS RESERVED
+    <br>
+</div>
 
   <audio id="bgMusic" loop>
       <source src="https://files.catbox.moe/1twzuu.mp3" type="audio/mpeg">
@@ -1138,31 +1207,16 @@
         }
 
         function switchTab(tabName, element) {
-            const profileTab = document.getElementById('profile-tab');
-            const gamesTab = document.getElementById('games-tab');
-            const waifuTab = document.getElementById('waifu-tab');
-            const socialsTab = document.getElementById('socials-tab');
-            const activityTab = document.getElementById('activity-tab');
-            const contactTab = document.getElementById('contact-tab');
-
-            if (profileTab) profileTab.style.display = 'none';
-            if (gamesTab) gamesTab.style.display = 'none';
-            if (waifuTab) waifuTab.style.display = 'none';
-            if (socialsTab) socialsTab.style.display = 'none';
-            if (activityTab) activityTab.style.display = 'none';
-            if (contactTab) contactTab.style.display = 'none';
+            // Automaticly Dissapear
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.style.display = 'none');
             
+            // Disable Function Active Buttons
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
 
-            let activeTab = null;
-            if (tabName === 'profile') activeTab = profileTab;
-            else if (tabName === 'games') activeTab = gamesTab;
-            else if (tabName === 'waifu') activeTab = waifuTab;
-            else if (tabName === 'socials') activeTab = socialsTab;
-            else if (tabName === 'activity') activeTab = activityTab;
-            else if (tabName === 'contact') activeTab = contactTab;
-            
+            // Dynamic Tabs
+            const activeTab = document.getElementById(tabName + '-tab');
             if (activeTab) {
                 activeTab.style.display = 'flex';
             }
